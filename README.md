@@ -11,3 +11,16 @@
 
 ## 테스트 코드 프레임워크
 - JUnit5 - java
+
+## 프로젝트 구조
+- build.gradle
+  - 역할: 프로젝트 빌드 설정, 의존성 관리, 롬복 포함 등
+- HelloController.java
+  - 역할: HTTP 요청 처리, API 엔드포인트 제공
+  - 동작의 흐름:
+    - 브라우저 요청 GET/hello
+    - HelloController.hello() 실행
+    - hello 문자열 반환
+    - 브라우저에 hello 표기
+- HelloResponseDto.java
+  - 역할: API 응답시 데이터를 담는 객체
