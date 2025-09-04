@@ -24,3 +24,11 @@
     - 브라우저에 hello 표기
 - HelloResponseDto.java
   - 역할: API 응답시 데이터를 담는 객체
+
+## 어노테이션이란
+- 어노테이션(Annotation)은 자바 소스 코드에 추가하여 사용할 수 있는 메타데이터의 일종이다.
+
+
+## 참고 링크
+[블로그] https://jojoldu.tistory.com/
+[github] https://github.com/jojoldu/freelec-springboot2-webservice
