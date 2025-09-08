@@ -1,6 +1,6 @@
 package com.jojoldu.book.springboot.config.auth;
 
-import com.jojoldu.book.springboot.config.auth.dto.OauthAttributes;
+import com.jojoldu.book.springboot.config.auth.dto.OAuthAttributes;
 import com.jojoldu.book.springboot.config.auth.dto.SessionUser;
 import com.jojoldu.book.springboot.domain.user.User;
 import com.jojoldu.book.springboot.domain.user.UserRepository;
@@ -24,6 +24,12 @@ public class CustomOauth2UserService implements OAuth2UserService<OAuth2UserRequ
     private final HttpSession httpSession;
 
     @Override
+    // 1. 기본 OAuth2UserService로 사용자 정보 가져오기
+    // 2. 어떤 소셜 사용자인지 구분
+    // 3. 사용자 정보를 우리 형식을 변환
+    // 4. 데이터베이스에 저장 / 업데이트
+    // 5. 세션에 사용자 정보 저장
+    // 6. 스프링 시큐리티 이용자 객체 변환
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
