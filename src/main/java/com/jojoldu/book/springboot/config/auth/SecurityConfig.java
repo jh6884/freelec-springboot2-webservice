@@ -19,12 +19,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())  // 람다 방식으로 변경
-                .headers(headers ->
-                        headers.frameOptions(frameOptions -> frameOptions.disable())  // h2-console 화면을 사용하기 위해
-                )
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))  // h2-console 화면을 사용하기 위해
                 .authorizeHttpRequests(auth -> auth  // authorizeRequests() → authorizeHttpRequests()
                         .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()  // antMatchers() → requestMatchers()
-                        .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
+                        .requestMatchers("/api/v1/**").permitAll()
+                        // .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                         .anyRequest().authenticated()
                 )
                 .logout(logout ->
