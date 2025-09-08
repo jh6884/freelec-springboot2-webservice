@@ -36,6 +36,6 @@ public class SecurityConfig {
                         )
                 );
 
-        return http.build();  // SecurityFilterChain 반환
+        return http.getOrBuild();  // SecurityFilterChain 반환
     }
 }
