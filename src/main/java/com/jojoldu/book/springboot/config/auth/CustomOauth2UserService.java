@@ -19,35 +19,30 @@ import java.util.Collections;
 
 @RequiredArgsConstructor
 @Service
-public class CustomOauth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User {
+public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final UserRepository userRepository;
     private final HttpSession httpSession;
 
     @Override
-    // 1. 기본 OAuth2UserService로 사용자 정보 가져오기
-    // 2. 어떤 소셜 사용자인지 구분
-    // 3. 사용자 정보를 우리 형식을 변환
-    // 4. 데이터베이스에 저장 / 업데이트
-    // 5. 세션에 사용자 정보 저장
-    // 6. 스프링 시큐리티 이용자 객체 변환
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId(); // 현재 로그인 진행 중인 서비스를 구분하는 코드
-        String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
-                .getUserInfoEndpoint().getUserNameAttributeName(); // OAuth2 로그인 진행 시 키가 되는 필드값을 이야기함
+        String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails() // OAuth2 로그인 진행 시 키가 되는 필드값을 이야기합니다.
+                .getUserInfoEndpoint().getUserNameAttributeName();
 
-        OAuthAttributes attributes = OAuthAtrributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes()); // OAuth2UserService를 통해 가져온 OAuth2User의 attribute를 담을 클래스입니다.
+        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes()); // OAuth2UserService를 통해 가져온 OAuth2User의 attribute 를 담을 클래스입니다.
+
         User user = saveOrUpdate(attributes);
         httpSession.setAttribute("user", new SessionUser(user)); // 세션에 사용자 정보를 저장하기 위한 Dto 클래스입니다.
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
-                attributes.getAttrivutes(),
+                attributes.getAttributes(),
                 attributes.getNameAttributeKey());
-
     }
+
 
     private User saveOrUpdate(OAuthAttributes attributes) {
         User user = userRepository.findByEmail(attributes.getEmail())
