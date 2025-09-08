@@ -24,7 +24,6 @@ public class OAuthAttributes {
         this.picture = picture;
     }
 
-    // of() OAuth2User에서 반환하는 사용자 정보는 Map이기 때문에 값 하나하나를 반환해야만합니다.
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
         if("naver".equals(registrationId)) {
             return ofNaver("id", attributes);
@@ -54,7 +53,7 @@ public class OAuthAttributes {
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
-    // User 엔티티를 생성합니다.
+
     public User toEntity() {
         return User.builder()
                 .name(name)

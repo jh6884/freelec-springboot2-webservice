@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "users") // 테이블명을 user로 변경
+@Table(name = "users") // 테이블 명을 user로 변경
 public class User extends BaseTimeEntity {
 
     @Id
@@ -56,4 +56,3 @@ public class User extends BaseTimeEntity {
         return this.role.getKey();
     }
 }
-

@@ -13,4 +13,3 @@ Thumbs.db
 
 # Oauth
 application-oauth.properties
-src/main/resources/templates/application-oauth.properties
