@@ -1,4 +1,4 @@
-package com.jojoldu.book.springboot.web;
+package com.jojoldu.book.springboot.dto;
 
 // JUnit 5 관련 import
 import org.junit.jupiter.api.AfterEach;
