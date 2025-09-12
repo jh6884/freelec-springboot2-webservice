@@ -9,7 +9,9 @@ group 'com.jopjoldu.book'
 version '1.0.4-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
 
 java {
-    JavaVersion.VERSION_17 // Java 17로 업그레이드 (Spring Boot 3.x 최소 요구사항)
+    // JavaVersion.VERSION_17 // Java 17로 업그레이드 (Spring Boot 3.x 최소 요구사항)
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 // 원격저장소
 repositories {
@@ -19,6 +21,18 @@ repositories {
 // for Junit 5
 test { // (2)
     useJUnitPlatform()
+}
+
+// Jar 설정 추가
+jar {
+    enabled = false
+    archiveClassifier = ''
+}
+
+// BootJar 설정 추가
+bootJar {
+    enabled = true
+    archiveClassifier = ''
 }
 
 dependencies {
